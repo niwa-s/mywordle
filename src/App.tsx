@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./components/Header";
+import { EmptyTile, InputedTile } from "./components/Tile";
+import useGameState from "./hooks/useGameState";
+import TileBoard from "./components/TileBoard";
+import Key from "./components/Key";
+import KeyBoard from "./components/KeyBoard";
+import { CharState } from "./types";
+import useWords from "./hooks/useWords";
+import useCharStates from "./hooks/useCharStates";
 
 function App() {
+  const [word, containedWordlist] = useWords();
+  const [charStates, setCharStates] = useCharStates();
+  const [tileStates, deleteEvent, inputEvent, enterEvent] = useGameState(
+    word,
+    charStates,
+    setCharStates,
+    containedWordlist
+  );
+  console.log(word)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen justify-between bg-black">
+      <Header />
+      <TileBoard tileStates={tileStates} />
+      <KeyBoard
+        deleteEvent={deleteEvent}
+        inputEvent={inputEvent}
+        enterEvent={enterEvent}
+        charStates={charStates}
+      />
     </div>
   );
 }
