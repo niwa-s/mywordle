@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 import Header from "./components/Header";
-import { EmptyTile, InputedTile } from "./components/Tile";
 import useGameState from "./hooks/useGameState";
 import TileBoard from "./components/TileBoard";
-import Key from "./components/Key";
 import KeyBoard from "./components/KeyBoard";
-import { CharState } from "./types";
 import useWords from "./hooks/useWords";
 import useCharStates from "./hooks/useCharStates";
 import ResultBoard from "./components/ResultBoard";
