@@ -12,7 +12,7 @@ const useGameState = (
     }>
   >,
   containedWordlist: (input: string) => boolean
-): [TileStateType[], () => void, (c: Chars) => void, () => void] => {
+): [TileStateType[], boolean, () => void, (c: Chars) => void, () => void] => {
   if (answer.length !== 5) {
     console.log(`Answer length must be 5 but ${answer.length}`);
   }
@@ -20,6 +20,7 @@ const useGameState = (
   for (let i = 0; i < 30; i++) {
     states.push({ type: "empty" });
   }
+  const [isGameEnd, setIsGameEnd] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   console.log("rerendering!", x, y);
@@ -105,10 +106,10 @@ const useGameState = (
     let inputWord = "";
     for (const tileState of tileStates.slice(y * 5, y * 5 + 5)) {
       if (tileState.type !== "empty") {
-        inputWord += tileState.value
+        inputWord += tileState.value;
       }
     }
-    console.log(inputWord)
+    console.log(inputWord);
     if (!containedWordlist(inputWord.toLowerCase())) {
       return;
     }
@@ -120,15 +121,18 @@ const useGameState = (
           : tileStates
       )
     );
+    if (answer === inputWord || y + 1 === 6) {
+      setIsGameEnd((_isGameEnd) => true);
+    }
     setY((y) => y + 1);
-    setX((x) => 0);
+    setX((_x) => 0);
     setCharStates({
       ...charStates,
       ...diff,
     });
   };
 
-  return [tileStates, deleteEvent, inputEvent, enterEvent];
+  return [tileStates, isGameEnd, deleteEvent, inputEvent, enterEvent];
 };
 
 export default useGameState;
