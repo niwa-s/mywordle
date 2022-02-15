@@ -2,10 +2,7 @@ import React from "react";
 import Key from "./Key";
 import { Chars, CharState } from "../types";
 import { BackspaceIcon } from "@heroicons/react/outline";
-
-const topKeyboard: Chars[] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
-const middleKeyboard: Chars[] = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-const bottomKeyboard: Chars[] = ["Z", "X", "C", "V", "B", "N", "M"];
+import { topKeyboard, middleKeyboard, bottomKeyboard } from "../constants/keys";
 
 type KeyBoardProps = {
   deleteEvent: () => void;
@@ -18,7 +15,7 @@ const KeyBoard: React.FC<KeyBoardProps> = ({
   deleteEvent,
   inputEvent,
   enterEvent,
-  charStates
+  charStates,
 }) => {
   return (
     <div className="flex flex-col  items-center">

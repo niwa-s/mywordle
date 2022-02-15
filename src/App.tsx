@@ -11,12 +11,14 @@ import { CharState } from "./types";
 import useWords from "./hooks/useWords";
 import useCharStates from "./hooks/useCharStates";
 import ResultBoard from "./components/ResultBoard";
+import useKeyDownEvent from "./hooks/useKeyDownEvent";
 
 function App() {
   const [word, containedWordlist] = useWords();
   const [charStates, setCharStates] = useCharStates();
   const [tileStates, isGameEnd, deleteEvent, inputEvent, enterEvent] =
     useGameState(word, charStates, setCharStates, containedWordlist);
+  useKeyDownEvent(deleteEvent, inputEvent, enterEvent);
   console.log(word);
   return (
     <div className="flex flex-col min-h-screen justify-between bg-black">
